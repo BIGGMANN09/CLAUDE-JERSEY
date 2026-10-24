@@ -1,0 +1,452 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jersey HUB – Premium Streetwear Jerseys</title>
+    <meta name="description" content="Jersey HUB – premium football, rugby, and custom jerseys with a modern streetwear edge.">
+    <link rel="canonical" href="https://jerseyhub.example.com/">
+    <!-- CHANGED: added Open Graph / Twitter Card tags — previously absent,
+         so shared links fell back to blank/generic previews. Replace the
+         placeholder URLs below with the real deployed domain. -->
+    <meta property="og:title" content="Jersey HUB – Premium Streetwear Jerseys">
+    <meta property="og:description" content="Premium football, rugby, and custom jerseys with a modern streetwear edge.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jerseyhub.example.com/">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="IMAGES/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="IMAGES/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="IMAGES/favicon_io/favicon-16x16.png">
+
+    <!-- Fonts & framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- CHANGED (critical fix): w3.css was never linked here even though
+         the markup below uses w3-col / w3-row / w3-bar-block / w3-modal /
+         w3-hide-large everywhere. 404.html links it; this page didn't.
+         Must load BEFORE main.css so main.css's rules can safely win. -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+
+    <!-- CHANGED (critical fix): previously this ~750-line stylesheet lived
+         inline in a <style> block and the actual CSS file sat unused. The
+         live stylesheet is now loaded from the correct folder, after w3.css. -->
+    <link rel="stylesheet" href="CSS/main.css">
+</head>
+<body class="w3-content">
+
+    <!-- ============================================================
+    SIDEBAR
+    ============================================================ -->
+    <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar" aria-label="Main navigation">
+        <div class="w3-container w3-display-container w3-padding-16">
+            <!-- CHANGED: icon-only close control converted from a bare
+                 <i onclick> (not focusable, not announced by screen
+                 readers) to a real <button> with aria-label. -->
+            <button type="button" class="icon-btn w3-hide-large w3-display-topright" onclick="JerseyHub.w3Close()" aria-label="Close menu">
+                <i class="fa fa-remove" style="color:var(--color-gray-400);" aria-hidden="true"></i>
+            </button>
+            <h3 class="w3-wide"><b class="text-gradient">JerseyHub</b></h3>
+        </div>
+        <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
+            <button type="button" onclick="JerseyHub.myAccFunc()" class="w3-button w3-block w3-white w3-left-align" id="myBtn" aria-expanded="true" aria-controls="demoAcc">
+                Jerseys <i class="fa fa-caret-down" aria-hidden="true"></i>
+            </button>
+            <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+                <a href="#jerseys" class="w3-bar-item w3-button filter-link" data-filter="all">All Kits</a>
+                <a href="#jerseys" class="w3-bar-item w3-button filter-link" data-filter="national">National Teams</a>
+                <a href="#jerseys" class="w3-bar-item w3-button filter-link" data-filter="epl">Premier League</a>
+                <a href="#jerseys" class="w3-bar-item w3-button filter-link" data-filter="laliga">La Liga</a>
+                <a href="#jerseys" class="w3-bar-item w3-button filter-link" data-filter="bundesliga">Bundesliga</a>
+                <a href="#jerseys" class="w3-bar-item w3-button filter-link" data-filter="ligue1">Ligue 1</a>
+                <a href="#jerseys" class="w3-bar-item w3-button filter-link" data-filter="seriea">Serie A</a>
+            </div>
+        </div>
+        <a href="#contact" class="w3-bar-item w3-button w3-padding">Contact</a>
+        <button type="button" class="w3-bar-item w3-button w3-padding w3-left-align" onclick="JerseyHub.openNewsletterModal()">Newsletter</button>
+        <a href="#footer" class="w3-bar-item w3-button w3-padding">Subscribe</a>
+    </nav>
+
+    <!-- Mobile Top Bar -->
+    <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
+        <div class="w3-bar-item w3-padding-24 w3-wide">Jerseys</div>
+        <button type="button" class="w3-bar-item w3-button w3-padding-24 w3-right icon-btn" onclick="JerseyHub.w3Open()" aria-label="Open menu">
+            <i class="fa fa-bars" style="color:white;" aria-hidden="true"></i>
+        </button>
+    </header>
+
+    <!-- Overlay -->
+    <div class="w3-overlay w3-hide-large" onclick="JerseyHub.w3Close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- ============================================================
+    MAIN CONTENT
+    ============================================================ -->
+    <main class="w3-main" style="margin-left:250px">
+        <!-- CHANGED: was a bare non-semantic <div class="w3-main">.
+             Swapped to <main> so the page has one clear landmark for
+             assistive tech and so "skip to content" patterns have
+             something to target. -->
+        <div class="w3-hide-large" style="margin-top:83px"></div>
+
+        <!-- HERO -->
+        <section class="hero-modern fade-up" aria-label="Introduction">
+            <h1>Level up your<br><span class="highlight text-gradient">street style.</span></h1>
+            <!-- CHANGED: updated for the 2026/27 catalog and the
+                 contact-based ordering model. -->
+            <p>2026/27 season kits for national teams and Europe's top clubs. Contact us to place an order.</p>
+            <a href="#jerseys" class="btn-primary">Browse Kits ↓</a>
+        </section>
+
+        <!-- ============================================================
+        BRAND STRIP
+        MERGED FROM UPLOADED FILE. CONFLICT: original had "12k+
+        Supporters" and "4.9/5 Rating" as mini-stats. Pre-launch, with
+        zero real customers, those are fabricated numbers — exactly
+        the fake-social-proof pattern this project has explicitly
+        banned from turn one. Resolved by replacing with facts that
+        are actually true right now: real catalog counts.
+        ============================================================ -->
+        <div class="brand-strip fade-up" aria-label="Brand summary">
+            <div class="promo-banner">
+                <small>Official match-day energy</small>
+                <h2>Built for the next kick-off.</h2>
+                <p>Premium clubwear and custom jerseys for fans who want bold identity, clean fit, and dependable service.</p>
+            </div>
+            <div class="mini-stats">
+                <div class="mini-stat">
+                    <strong>35+</strong>
+                    <span>Kits in stock</span>
+                </div>
+                <div class="mini-stat">
+                    <strong>6</strong>
+                    <span>Leagues &amp; nations</span>
+                </div>
+                <div class="mini-stat">
+                    <strong>WhatsApp</strong>
+                    <span>Direct ordering</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        TRUST BAR
+        MERGED FROM UPLOADED FILE. CONFLICTS resolved:
+        1. Emoji icons (✓ ★ ⚡ 💬) replaced with Font Awesome glyphs —
+           already the site's icon system elsewhere (fa-whatsapp,
+           fa-shopping-cart), and emoji-as-icons was removed from this
+           project in an earlier pass.
+        2. "Authentic kits" reworded to "Authentic-style kits" — the
+           site's own terms.html discloses these are replica kits, so
+           marketing copy can't call them "authentic" outright without
+           contradicting that disclosure.
+        3. "12k+ happy fans" (fabricated count) replaced with "A real
+           person responds" — true today, and reinforces that support
+           runs through WhatsApp/email, not a bot.
+        4. Delivery-time claim de-invented — no verified logistics data
+           exists yet, so this uses the same general phrasing already
+           used elsewhere on the site ("delivery across the country")
+           instead of a specific unverified day-range.
+        ============================================================ -->
+        <div class="trust-bar fade-up" aria-label="Store trust signals">
+            <div class="trust-item">
+                <i class="fa fa-truck trust-icon" aria-hidden="true"></i>
+                <div>
+                    <strong>Nationwide delivery</strong>
+                    <small>Across Ghana</small>
+                </div>
+            </div>
+            <div class="trust-item">
+                <i class="fa fa-certificate trust-icon" aria-hidden="true"></i>
+                <div>
+                    <strong>Authentic-style kits</strong>
+                    <small>Premium quality</small>
+                </div>
+            </div>
+            <div class="trust-item">
+                <i class="fa fa-whatsapp trust-icon" aria-hidden="true"></i>
+                <div>
+                    <strong>Easy ordering</strong>
+                    <small>WhatsApp / contact</small>
+                </div>
+            </div>
+            <div class="trust-item">
+                <i class="fa fa-comments trust-icon" aria-hidden="true"></i>
+                <div>
+                    <strong>Real support</strong>
+                    <small>A real person responds</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        SHOP BY COLLECTION
+        MERGED FROM UPLOADED FILE. CONFLICT: original's three cards
+        were "National team icons" / "Club legends" / "Made for your
+        style" (custom/blank jerseys). The current 35-item catalog has
+        no blank/customizable product at all, and "Club legends"
+        mapped to data-filter="epl" while claiming to represent all
+        European clubs — both would have been broken or misleading
+        promises. Resolved by making all three cards map 1:1 to filter
+        categories that actually exist in PRODUCTS, with real counts
+        instead of unverifiable superlatives like "Top sellers".
+        ============================================================ -->
+        <section class="shop-collection fade-up" aria-labelledby="featuredCollectionsHeading">
+            <div class="section-header">
+                <h2 id="featuredCollectionsHeading">Shop by collection</h2>
+                <span class="section-tag">Curated picks</span>
+            </div>
+            <div class="collection-grid">
+                <article class="collection-card">
+                    <span class="collection-badge">10 nations</span>
+                    <h3>National team kits</h3>
+                    <p>Ghana, Brazil, Argentina, and more — 2026/27 home kits.</p>
+                    <button type="button" class="collection-btn" data-filter="national">Shop national</button>
+                </article>
+                <article class="collection-card collection-card-accent">
+                    <span class="collection-badge">5 clubs</span>
+                    <h3>Premier League kits</h3>
+                    <p>Manchester City, Arsenal, Liverpool, and more.</p>
+                    <button type="button" class="collection-btn" data-filter="epl">Shop Premier League</button>
+                </article>
+                <article class="collection-card">
+                    <span class="collection-badge">35 kits</span>
+                    <h3>Full catalog</h3>
+                    <p>Every national team and club kit in one place.</p>
+                    <button type="button" class="collection-btn" data-filter="all">Explore all</button>
+                </article>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        WHY FANS CHOOSE JERSEYHUB
+        MERGED FROM UPLOADED FILE. CONFLICTS resolved:
+        1. Emoji icons (✓ ⚽ 🔒) replaced with Font Awesome glyphs.
+        2. "Secure buying... from checkout to delivery confirmation"
+           referenced a checkout system that was deliberately removed
+           from this project (see JerseyHub.contactToOrder). Reworded
+           to describe the actual WhatsApp-based flow.
+        ============================================================ -->
+        <section class="shop-spotlight fade-up" aria-labelledby="shopHighlightsHeading">
+            <div class="section-header">
+                <h2 id="shopHighlightsHeading">Why fans choose JerseyHub</h2>
+                <span class="section-tag">Built for match day</span>
+            </div>
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <i class="fa fa-check feature-icon" aria-hidden="true"></i>
+                    <h3>Premium fit</h3>
+                    <p>Comfortable, lightweight jerseys designed for daily wear and game-day energy.</p>
+                </article>
+                <article class="feature-card">
+                    <i class="fa fa-trophy feature-icon" aria-hidden="true"></i>
+                    <h3>Club-ready catalog</h3>
+                    <p>Curated kits from elite leagues and national sides, all in one easy shopping flow.</p>
+                </article>
+                <article class="feature-card">
+                    <i class="fa fa-whatsapp feature-icon" aria-hidden="true"></i>
+                    <h3>Simple ordering</h3>
+                    <p>Order directly over WhatsApp with a real person confirming your details, start to finish.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Top bar -->
+        <div class="top-bar">
+            <span class="jerseys-label">2026/27 Season Kits</span>
+            <div class="cart-icon">
+                <!-- CHANGED: the cart/checkout system is gone. Ordering
+                     is contact-based (see JerseyHub.contactToOrder in
+                     main.js), so the cart icon and badge no longer have
+                     a job. Replaced with a direct WhatsApp shortcut for
+                     general questions not tied to one specific kit. -->
+                <a class="icon-btn" href="https://wa.me/233505389974" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+                    <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                </a>
+                <button type="button" class="icon-btn" aria-label="Search">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Item count -->
+        <div class="w3-container w3-text-grey" id="jerseys" style="padding-left:0;">
+            <!-- CHANGED: was a static "8 items" string. Now set by
+                 renderProducts() in main.js so it always matches the
+                 actual catalog/filter count instead of drifting stale
+                 the way it already had before this update. -->
+            <p id="itemCount">Loading kits…</p>
+        </div>
+
+        <!-- Product Grid -->
+        <!-- CHANGED: previously 8 product cards were hand-written here.
+             At 35 products (10 national + 5 leagues × 5 clubs), hand-
+             written HTML per card stops being maintainable. The grid
+             is now an empty mount point; main.js renders every card
+             from the PRODUCTS array on load and on filter change.
+             CONFLICT NOTE: the uploaded file's cards each had a "View
+             details" link to product.html?id=N. That page doesn't
+             exist anywhere in this project, so those would have been
+             dead links. Not merged — a real product-detail page is a
+             separate feature to build deliberately, not something to
+             fake with a broken link. -->
+        <div class="w3-row w3-grayscale" id="productGrid" style="margin-top:12px;">
+        </div>
+
+        <!-- Subscribe Section -->
+        <!-- MERGED FROM UPLOADED FILE: adopted its two-column layout
+             (copy + form side by side) over the previous single
+             centered block — genuinely better structure. CONFLICT:
+             the uploaded version used a second <h1> here. A page
+             should have exactly one <h1> (the hero); this is
+             downgraded to <h2> for correct document outline/SEO,
+             matching the pattern already used by the other section
+             headings on this page. -->
+        <section class="subscribe-section fade-up" aria-labelledby="subscribeHeading">
+            <div class="subscribe-inner">
+                <div class="subscribe-copy">
+                    <p class="section-kicker">Newsletter</p>
+                    <h2 id="subscribeHeading" class="text-gradient">Stay ahead of new drops</h2>
+                    <p>Get launch alerts, restock updates, and member-only pricing for premium kits.</p>
+                </div>
+                <form class="subscribe-form" onsubmit="event.preventDefault(); JerseyHub.subscribeNewsletter();">
+                    <label for="newsletterEmail" class="visually-hidden">Email address</label>
+                    <div class="subscribe-field">
+                        <input type="email" placeholder="Enter your email" id="newsletterEmail" required>
+                        <button type="submit">Join now</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="w3-padding-64 w3-light-grey w3-small w3-center" id="footer">
+            <div class="w3-row-padding">
+                <div class="w3-col s4">
+                    <h4>Contact</h4>
+                    <p>Questions? Go ahead.</p>
+                    <form id="contactForm" onsubmit="JerseyHub.submitContactForm(event)">
+                        <!-- CHANGED: each field now has an associated <label>
+                             (visually hidden, still placeholder-styled) instead
+                             of relying on placeholder text alone, which fails
+                             WCAG 1.3.1 and disappears the moment a user types. -->
+                        <p>
+                            <label for="contactName" class="visually-hidden">Name</label>
+                            <input class="w3-input w3-border" type="text" placeholder="Name" name="Name" id="contactName" required>
+                        </p>
+                        <p>
+                            <label for="contactEmail" class="visually-hidden">Email</label>
+                            <input class="w3-input w3-border" type="email" placeholder="Email" name="Email" id="contactEmail" required>
+                        </p>
+                        <p>
+                            <label for="contactSubject" class="visually-hidden">Subject</label>
+                            <input class="w3-input w3-border" type="text" placeholder="Subject" name="Subject" id="contactSubject" required>
+                        </p>
+                        <p>
+                            <label for="contactMessage" class="visually-hidden">Message</label>
+                            <input class="w3-input w3-border" type="text" placeholder="Message" name="Message" id="contactMessage" required>
+                        </p>
+                        <button type="submit" class="w3-button w3-block w3-black">Send</button>
+                    </form>
+                </div>
+                <div class="w3-col s4">
+                    <h4>About</h4>
+                    <!-- MERGED FROM UPLOADED FILE: these were all
+                         href="#" placeholders before. The uploaded
+                         version pointed each label at a real, existing
+                         destination on the page (or a real contact
+                         channel) instead — adopted as a genuine
+                         improvement. "We're hiring" and "Gift card"
+                         dropped since no real destination exists for
+                         either yet; better to omit a link than point
+                         it at "#". -->
+                    <p><a href="#shopHighlightsHeading">About us</a></p>
+                    <p><a href="#contact">Support</a></p>
+                    <p><a href="#footer">Find store</a></p>
+                    <p><a href="mailto:jerseyhub2026@mail.com">Shipment</a></p>
+                    <p><a href="https://wa.me/233505389974" target="_blank" rel="noopener">Payment</a></p>
+                    <p><a href="#footer">Return</a></p>
+                    <p><a href="#contact">Help</a></p>
+                </div>
+                <div class="w3-col s4 w3-justify">
+                    <h4>Store</h4>
+                    <p><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> Dansoman 547th Gulley Road</p>
+                    <p><i class="fa fa-fw fa-phone" aria-hidden="true"></i> <a href="tel:+233505389974">+233 505 389 974</a></p>
+                    <p><i class="fa fa-fw fa-envelope" aria-hidden="true"></i> <a href="mailto:jerseyhub2026@mail.com">jerseyhub2026@mail.com</a></p>
+                    <h4>We accept</h4>
+                    <p><i class="fa fa-fw fa-cc-amex" aria-hidden="true"></i> MOMO, TELECEL CASH, AT MONEY</p>
+                    <p><i class="fa fa-fw fa-credit-card" aria-hidden="true"></i> Credit Card</p>
+                    <br>
+                    <a href="#" aria-label="Facebook"><i class="fa fa-facebook-official w3-hover-opacity w3-large" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa fa-instagram w3-hover-opacity w3-large" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="Snapchat"><i class="fa fa-snapchat w3-hover-opacity w3-large" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="Pinterest"><i class="fa fa-pinterest-p w3-hover-opacity w3-large" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fa fa-twitter w3-hover-opacity w3-large" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fa fa-linkedin w3-hover-opacity w3-large" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </footer>
+
+        <div class="w3-black w3-center w3-padding-24 footer-legal">
+            <!-- CHANGED: neither the original build nor the first
+                 rebuild pass actually linked these two pages anywhere,
+                 despite both files existing on disk. Footer-linked
+                 legal pages was a blocking item in the launch
+                 checklist; it wasn't actually satisfied until now. -->
+            <a href="privacy.html">Privacy Policy</a>
+            <span aria-hidden="true"> · </span>
+            <a href="terms.html">Terms & Conditions</a>
+            <span aria-hidden="true"> · </span>
+            © <span id="copyrightYear">2026</span> JerseyHub
+        </div>
+    </main>
+
+    <!-- Newsletter Modal -->
+    <div id="newsletter" class="w3-modal">
+        <div class="w3-modal-content w3-animate-zoom" style="padding:32px; max-width:480px;" role="dialog" aria-modal="true" aria-labelledby="newsletterModalHeading">
+            <div class="w3-container w3-white w3-center">
+                <button type="button" class="icon-btn w3-right w3-xxlarge" onclick="JerseyHub.closeNewsletterModal()" aria-label="Close newsletter dialog">
+                    <i class="fa fa-remove" aria-hidden="true"></i>
+                </button>
+                <h2 class="w3-wide text-gradient" id="newsletterModalHeading">NEWSLETTER</h2>
+                <p>Join our mailing list to receive updates on new arrivals and special offers.</p>
+                <form onsubmit="event.preventDefault(); JerseyHub.subscribeModalNewsletter();">
+                    <p>
+                        <label for="modalNewsletterEmail" class="visually-hidden">Email address</label>
+                        <input class="w3-input w3-border" type="email" placeholder="Enter e-mail" id="modalNewsletterEmail" required>
+                    </p>
+                    <button type="submit" class="w3-button w3-padding-large w3-red w3-margin-bottom">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHANGED: the cart drawer, cart overlay, and stubbed "Proceed to
+         Checkout" button (which never processed a real order) are
+         removed entirely. Ordering now happens via
+         JerseyHub.contactToOrder(), which opens a pre-filled WhatsApp
+         chat per product, or via the contact form in the footer. -->
+
+    <!-- ============================================================
+    IMAGE LIGHTBOX
+    ============================================================ -->
+    <div id="imageLightbox" onclick="JerseyHub.closeLightbox()">
+        <img id="lightboxImage" src="" alt="Enlarged jersey product photo">
+    </div>
+
+    <!-- BACK TO TOP -->
+    <button onclick="window.scrollTo({top:0,behavior:'smooth'})" id="backToTopBtn" aria-label="Back to top">↑</button>
+
+    <!-- TOAST -->
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <!-- CHANGED (critical fix): this is the only <script> tag on the page
+         now — it loads the external, consolidated main.js instead of a
+         second, divergent inline copy. Placed at the end of body so it
+         doesn't block rendering. -->
+    <script src="main.js"></script>
+</body>
+</html>

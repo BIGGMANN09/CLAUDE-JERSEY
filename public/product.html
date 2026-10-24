@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Jersey HUB | Product Details</title>
+
+  <meta name="description" content="View product details and buy premium jerseys from Jersey HUB." />
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none';">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="CSS/w3.css?v=1.0.0" />
+  <link rel="stylesheet" href="CSS/main.css?v=1.0.0" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": "",
+      "image": "",
+      "description": "",
+      "offers": {
+        "@type": "Offer",
+        "price": "",
+        "priceCurrency": "GHS",
+        "availability": "https://schema.org/InStock"
+      }
+    }
+  </script>
+
+</head>
+
+<body>
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <main id="main-content" class="product-page">
+
+    <a class="back-link" href="index.html">← Back to shop</a>
+
+    <section class="product-shell" id="productDetail"></section>
+
+  </main>
+
+
+
+  <script src="JS/main.js?v=1.0.0"></script>
+
+  <script>
+
+    const formatPrice = (value) => "GH?" + Number(value).toFixed(2);
+
+
+
+    const escapeHtml = (text) => {
+
+      const div = document.createElement("div");
+
+      div.textContent = text;
+
+      return div.innerHTML;
+
+    };
+
+
+
+    const renderProduct = (product) => {
+
+      const container = document.getElementById("productDetail");
+
+      if (!container) return;
+
+
+
+      if (!product) {
+
+        container.innerHTML = '<div class="detail"><h1>Product not found</h1><p>That item does not exist in our collection.</p><a class="primary-btn" href="index.html">Return to shop</a></div>';
+
+        return;
+
+      }
+
+
+
+      const imageWrap = document.createElement("div");
+
+      imageWrap.className = "product-image-wrap";
+
+
+
+      const img = document.createElement("img");
+
+      img.src = product.image;
+
+      img.alt = escapeHtml(product.name);
+
+      img.loading = "lazy";
+
+      imageWrap.appendChild(img);
+
+
+
+      const detail = document.createElement("div");
+
+      detail.className = "detail";
+
+
+
+      const subtitle = document.createElement("div");
+
+      subtitle.className = "subtitle";
+
+      subtitle.textContent = escapeHtml(product.club);
+
+      detail.appendChild(subtitle);
+
+
+
+      const h1 = document.createElement("h1");
+
+      h1.textContent = escapeHtml(product.name);
+
+      detail.appendChild(h1);
+
+
+
+      const price = document.createElement("div");
+
+      price.className = "price";
+
+      price.textContent = formatPrice(product.price);
+
+      detail.appendChild(price);
+
+
+
+      const meta = document.createElement("div");
+
+      meta.className = "meta";
+
+      meta.innerHTML = `\n        <span>Category: ${escapeHtml(product.category)}</span>\n        <span>Free delivery in Ghana</span>\n        <span>Secure checkout</span>\n      `;
+
+      detail.appendChild(meta);
+
+
+
+      const description = document.createElement("p");
+
+      description.className = "description";
+
+      description.textContent = escapeHtml(product.description);
+
+      detail.appendChild(description);
+
+
+
+      const actions = document.createElement("div");
+
+      actions.className = "actions";
+
+
+
+      const contactBtn = document.createElement("button");
+
+      contactBtn.type = "button";
+
+      contactBtn.className = "primary-btn";
+
+      contactBtn.textContent = "Contact to Order";
+
+      contactBtn.onclick = () => JerseyHub.contactToOrder(escapeHtml(product.name), product.price);
+
+      actions.appendChild(contactBtn);
+
+
+
+      const continueBtn = document.createElement("a");
+
+      continueBtn.className = "secondary-btn";
+
+      continueBtn.href = "index.html";
+
+      continueBtn.textContent = "Continue shopping";
+
+      actions.appendChild(continueBtn);
+
+
+
+      detail.appendChild(actions);
+
+
+
+      container.innerHTML = "";
+
+      container.appendChild(imageWrap);
+
+      container.appendChild(detail);
+
+    };
+
+
+
+    // Fetch product from the API using the id query parameter.
+
+    // Single source of truth: data/products.js served by /api/products/:id.
+
+    const params = new URLSearchParams(window.location.search);
+
+    const id = params.get("id");
+
+    const container = document.getElementById("productDetail");
+
+
+
+    if (container && id) {
+
+      fetch("/api/products/" + id)
+
+        .then((response) => {
+
+          if (!response.ok) throw new Error("Product not found");
+
+          return response.json();
+
+        })
+
+        .then((data) => {
+          renderProduct(data.product);
+          const jsonLd = document.querySelector('script[type="application/ld+json"]');
+          if (jsonLd && data.product) {
+            const product = data.product;
+            jsonLd.textContent = JSON.stringify({
+              "@context": "https://schema.org/",
+              "@type": "Product",
+              "name": product.name,
+              "image": product.image,
+              "description": product.description,
+              "offers": {
+                "@type": "Offer",
+                "price": product.price,
+                "priceCurrency": "GHS",
+                "availability": "https://schema.org/InStock"
+              }
+            });
+          }
+        })
+
+        .catch((error) => {
+
+          console.error("Failed to load product:", error);
+
+          renderProduct(null);
+
+        });
+
+    } else if (container) {
+
+      renderProduct(null);
+
+    }
+
+  </script>
+
+</body>
+
+</html>
+
+
+
+

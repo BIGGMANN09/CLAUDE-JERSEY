@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page Not Found | Jersey HUB</title>
+    <meta name="description" content="The page you're looking for doesn't exist on Jersey HUB.">
+    <meta name="robots" content="noindex">
+    <!-- CHANGED: 404 pages shouldn't be indexed by search engines. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none';">
+
+    <!-- CHANGED: added the same favicon links index.html uses — the
+         original 404 page had none, so the browser tab lost branding
+         on exactly the page most likely to be hit from a broken link. -->
+    <link rel="apple-touch-icon" sizes="180x180" href="IMAGES/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="IMAGES/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="IMAGES/favicon_io/favicon-16x16.png">
+
+    <link rel="stylesheet" href="CSS/w3.css?v=1.0.0">
+    <!-- CHANGED: swapped Montserrat for Inter so this page matches the
+         rest of the site's typography instead of looking like a
+         different product. -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/main.css?v=1.0.0">
+    <style>
+        body {
+            font-family: "Inter", -apple-system, sans-serif;
+            /* CHANGED: updated to the "Pitch & Neon Turf" palette to
+               match index.html — deep emerald pitch-green base. */
+            background: #071f16;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .error-box {
+            background: #0f3324;
+            color: #ffffff;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            max-width: 500px;
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+        .big-number {
+            font-size: 80px;
+            font-weight: 900;
+            /* CHANGED: neon lime, the site's interactive accent. */
+            color: #c6ff00;
+            margin: 0;
+        }
+        h1 {
+            color: #ffffff;
+        }
+        p {
+            color: #93a99c;
+            margin: 20px 0;
+        }
+        a.home-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #c6ff00, #9ee600);
+            /* CHANGED: dark text — white-on-lime fails contrast. */
+            color: #05170f;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+        a.home-link:hover,
+        a.home-link:focus-visible {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- CHANGED: wrapped in <main> so the page has a landmark, and the
+         numeral is now marked aria-hidden with the real heading text
+         carrying the meaning for screen readers. -->
+    <main id="main-content" class="error-box">
+        <p class="big-number" aria-hidden="true">404</p>
+        <h1>Oops! Jersey not found.</h1>
+        <p>The page you're looking for might have been moved or doesn't exist.</p>
+        <a class="home-link" href="index.html">← Back to the HUB</a>
+    </main>
+</body>
+</html>
+

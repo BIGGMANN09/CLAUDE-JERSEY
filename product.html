@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jersey HUB | Product Details</title>
+  <meta name="description" content="View product details and buy premium jerseys from Jersey HUB." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="CSS/main.css" />
+  <style>
+    body {
+      background: #071f16;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .product-page {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 32px 20px 80px;
+    }
+
+    .product-shell {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 42px;
+      align-items: center;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(198,255,0,0.18);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+    }
+
+    .product-image-wrap {
+      background: linear-gradient(135deg, rgba(198,255,0,0.08), rgba(16,185,129,0.08));
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .product-image-wrap img {
+      width: 100%;
+      border-radius: 18px;
+      display: block;
+      object-fit: cover;
+      min-height: 450px;
+      background: #0d1b1a;
+    }
+
+    .detail h1 {
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    .detail .subtitle {
+      color: #a8b8b1;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+    }
+
+    .price {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #c6ff00;
+      margin: 22px 0;
+    }
+
+    .meta {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      color: #d9e3de;
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+    }
+
+    .meta span {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 999px;
+      padding: 8px 12px;
+    }
+
+    .description {
+      color: #d3ddd9;
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .primary-btn, .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 15px 22px;
+      border-radius: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .primary-btn {
+      background: linear-gradient(135deg, #c6ff00, #9ee600);
+      color: #05170f;
+      box-shadow: 0 18px 30px rgba(198,255,0,0.25);
+    }
+
+    .secondary-btn {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .primary-btn:hover, .secondary-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 22px;
+      color: #c6ff00;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (max-width: 820px) {
+      .product-shell {
+        grid-template-columns: 1fr;
+        padding: 18px;
+      }
+
+      .product-image-wrap img {
+        min-height: 320px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="product-page">
+    <a class="back-link" href="index.html">← Back to shop</a>
+    <section class="product-shell" id="productDetail"></section>
+  </main>
+
+  <script src="JS/main.js"></script>
+  <script>
+    const products = [
+      { id: 1, name: 'Manchester City Jersey Kit', club: 'Man City', category: 'new', price: 8.99, image: 'IMAGES/images.jpeg', description: 'Official-style Man City home jersey. Lightweight, breathable fabric built for comfort and match-day energy.' },
+      { id: 2, name: 'Jerseys Collection', club: 'Various', category: 'special', price: 81.99, image: 'IMAGES/J1.jpeg', description: 'A premium bundle featuring standout matches, modern fit, and reliable quality from top club-inspired designs.' },
+      { id: 3, name: 'Rugby Jersey Kit', club: 'Rugby', category: 'new', price: 19.99, image: 'IMAGES/images (44).jpeg', description: 'Classic rugby jersey with reinforced stitching, team-inspired styling, and a durable athletic cut.' },
+      { id: 4, name: 'American Football Kit', club: 'NFL Style', category: 'all', price: 20.50, image: 'IMAGES/images (31).jpeg', description: 'Authentic-style American football jersey with tackle-twill numbers and bold streetwear energy.' },
+      { id: 5, name: 'Customizable Kit', club: 'Custom', category: 'all', price: 20.50, image: 'IMAGES/images (11).jpeg', description: 'Blank jersey ready for custom printing. Ideal for personalization, training squads, or a signature look.' },
+      { id: 6, name: 'PSG Jersey Kit', club: 'PSG', category: 'sale', price: 14.99, image: 'IMAGES/images (10).jpeg', description: 'Paris Saint-Germain home jersey in iconic navy and red, crafted for everyday wear and supporter energy.' },
+      { id: 7, name: 'Customizable Kit 2', club: 'Custom', category: 'all', price: 14.99, image: 'IMAGES/images (4).jpeg', description: 'Second custom jersey offering a clean setup for teams, personal branding, or laid-back street style.' },
+      { id: 8, name: 'Spain Kit', club: 'Spain', category: 'special', price: 24.99, image: 'IMAGES/images (39).jpeg', description: 'Spain national team jersey in classic red — built for football culture and everyday statement wear.' }
+    ];
+
+    function formatPrice(value) {
+      return 'GH₵' + Number(value).toFixed(2);
+    }
+
+    function getProductById(id) {
+      return products.find(item => item.id === Number(id));
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function renderProduct() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      const product = getProductById(id);
+      const container = document.getElementById('productDetail');
+
+      if (!container) return;
+
+      if (!product) {
+        container.innerHTML = '<div class="detail"><h1>Product not found</h1><p>That item does not exist in our collection.</p><a class="primary-btn" href="index.html">Return to shop</a></div>';
+        return;
+      }
+
+      // Build product card using DOM methods instead of innerHTML template
+      // to avoid XSS via template-literal injection of product data.
+      const imageWrap = document.createElement('div');
+      imageWrap.className = 'product-image-wrap';
+
+      const img = document.createElement('img');
+      img.src = product.image;
+      img.alt = escapeHtml(product.name);
+      img.loading = 'lazy';
+      imageWrap.appendChild(img);
+
+      const detail = document.createElement('div');
+      detail.className = 'detail';
+
+      const subtitle = document.createElement('div');
+      subtitle.className = 'subtitle';
+      subtitle.textContent = escapeHtml(product.club);
+      detail.appendChild(subtitle);
+
+      const h1 = document.createElement('h1');
+      h1.textContent = escapeHtml(product.name);
+      detail.appendChild(h1);
+
+      const price = document.createElement('div');
+      price.className = 'price';
+      price.textContent = formatPrice(product.price);
+      detail.appendChild(price);
+
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      meta.innerHTML = `
+        <span>Category: ${escapeHtml(product.category)}</span>
+        <span>Free delivery in Ghana</span>
+        <span>Secure checkout</span>
+      `;
+      detail.appendChild(meta);
+
+      const description = document.createElement('p');
+      description.className = 'description';
+      description.textContent = escapeHtml(product.description);
+      detail.appendChild(description);
+
+      const actions = document.createElement('div');
+      actions.className = 'actions';
+
+      const contactBtn = document.createElement('button');
+      contactBtn.type = 'button';
+      contactBtn.className = 'primary-btn';
+      contactBtn.textContent = 'Contact to Order';
+      contactBtn.onclick = () => JerseyHub.contactToOrder(escapeHtml(product.name), product.price);
+      actions.appendChild(contactBtn);
+
+      const continueBtn = document.createElement('a');
+      continueBtn.className = 'secondary-btn';
+      continueBtn.href = 'index.html';
+      continueBtn.textContent = 'Continue shopping';
+      actions.appendChild(continueBtn);
+
+      detail.appendChild(actions);
+
+      container.innerHTML = '';
+      container.appendChild(imageWrap);
+      container.appendChild(detail);
+    }
+
+    renderProduct();
+  </script>
+</body>
+</html>
